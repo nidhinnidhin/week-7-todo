@@ -18,6 +18,7 @@ import { Edit, Delete } from "@mui/icons-material";
 import Footer from "./components/footer";
 
 const TodoApp = () => {
+  // States
   const [todos, setTodos] = useState([]); 
   const [todo, setTodo] = useState("");
   const [isEditing, setIsEditing] = useState(false); 
@@ -25,6 +26,7 @@ const TodoApp = () => {
   const [deleteIndex, setDeleteIndex] = useState(null); 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false); 
 
+  // Handle add todo
   const handleAddTodo = () => {
     if (todo) {
       setTodos([...todos, todo]);
@@ -32,12 +34,14 @@ const TodoApp = () => {
     }
   };
 
+  // Handle edit todo
   const handleEditTodo = (index) => {
     setIsEditing(true);
     setEditIndex(index);
     setTodo(todos[index]);
   };
 
+  // Save updated todo
   const handleSaveTodo = () => {
     if (todo){
       const updatedTodos = [...todos];
@@ -50,16 +54,19 @@ const TodoApp = () => {
     }
   };
 
+  // Open modal
   const handleDeleteDialogOpen = (index) => {
     setDeleteIndex(index);
     setOpenDeleteDialog(true);
   };
 
+  // close modal
   const handleDeleteDialogClose = () => {
     setOpenDeleteDialog(false);
     setDeleteIndex(null);
   };
 
+  // Handling delete todo
   const handleDeleteTodo = () => {
     const updatedTodos = todos.filter((todo, index) => index !== deleteIndex);
     setTodos(updatedTodos)
@@ -101,6 +108,7 @@ const TodoApp = () => {
       </Box>
 
       <List>
+        {/* Rendering todos */}
         {todos.map((task, index) => (
           <ListItem
             key={index}
@@ -132,6 +140,7 @@ const TodoApp = () => {
         ))}
       </List>
 
+        {/* Modal for delete confirmation */}
       <Dialog
         open={openDeleteDialog}
         onClose={handleDeleteDialogClose}
